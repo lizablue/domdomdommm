@@ -5,6 +5,8 @@ document.addEventListener('DOMContentLoaded', function () {
     button.appendChild(btnText);
     document.body.appendChild(button);
 
+    button.style.display = "block";
+
     // add squares on button click
     button.addEventListener("click", function () {
         let square = document.createElement('div');
@@ -20,14 +22,17 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         
         // show div id on mouseover
+        let idValue = square.id
+        let divId = document.createTextNode("ID=" + idValue)
+
         square.addEventListener("mouseover", function () {
-            let idValue = square.id
-            let divId = document.createTextNode("ID=" + idValue)
             square.appendChild(divId)
-            
-            // event.target.textContent = "";
-            // let divText = document.createTextNode('div #id');
-            // square.appendChild(divText);
+        })
+
+        // stop showing id on div
+        square.addEventListener("mouseout", function () {
+            let showId = square.appendChild(divId)
+            square.removeChild(showId);
         })
     })
 
