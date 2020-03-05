@@ -43,9 +43,11 @@ document.addEventListener('DOMContentLoaded', function () {
         })
 
         square.addEventListener("dblclick", function() {
-            if (idValue === 1){
-                document.body.removeChild(idValue)
-            } 
+            if (idValue % 2 === 0){ //even numbers
+                square.style.backgroundColor = "black";
+            } else { //odd numbers
+                square.style.backgroundColor = "white";
+            }
         })
     
     })
