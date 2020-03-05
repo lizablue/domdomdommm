@@ -14,13 +14,13 @@ document.addEventListener('DOMContentLoaded', function () {
         square.style.backgroundColor = "black";
         square.style.display = "inline-block";
         document.body.appendChild(square);
-        
+
         // assign id to div with increasing number 
         let id = document.getElementsByClassName("shape");
-        for(let i = 0; i < id.length; i++) {
+        for (let i = 0; i < id.length; i++) {
             id[i].setAttribute("id", i);
         }
-        
+
         // show div id on mouseover
         let idValue = square.id
         let divId = document.createTextNode("ID=" + idValue)
@@ -28,13 +28,26 @@ document.addEventListener('DOMContentLoaded', function () {
         square.addEventListener("mouseover", function () {
             square.appendChild(divId)
         })
-
-        // stop showing id on div
+        
+        // stop displaying id text on div
         square.addEventListener("mouseout", function () {
             let showId = square.appendChild(divId)
             square.removeChild(showId);
         })
+
+        let colorArray = ["red", "orange", "gold", "green", "blue", "indigo", "gray"];
+        let randomColor = colorArray[Math.floor(Math.random() * colorArray.length)];
+
+        square.addEventListener("click", function() {
+            square.style.backgroundColor = randomColor;
+        })
+
+        square.addEventListener("dblclick", function() {
+            if (idValue === 1){
+                document.body.removeChild(idValue)
+            } 
+        })
+    
     })
 
-   
 })
