@@ -42,12 +42,15 @@ document.addEventListener('DOMContentLoaded', function () {
             square.style.backgroundColor = randomColor;
         })
 
+        let olderSibling = parseInt(idValue) + 1
+        let youngerSibling = parseInt(idValue) - 1
+
         square.addEventListener("dblclick", function() {
             if (idValue % 2 === 0){ //even numbers
-                square.style.backgroundColor = "black";
+                document.body.removeChild(document.getElementById(olderSibling));
             } else { //odd numbers
-                square.style.backgroundColor = "white";
-            }
+                document.body.removeChild(document.getElementById(youngerSibling));
+            } 
         })
     
     })
