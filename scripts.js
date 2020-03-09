@@ -21,38 +21,42 @@ document.addEventListener('DOMContentLoaded', function () {
             id[i].setAttribute("id", i);
         }
 
-        // show div id on mouseover
         let idValue = square.id
-        let divId = document.createTextNode("ID=" + idValue)
-
+        let divId = document.createTextNode("id=" + idValue)
+        
+        // show div id on mouseover
         square.addEventListener("mouseover", function () {
             square.appendChild(divId)
         })
-        
+
         // stop displaying id text on div
         square.addEventListener("mouseout", function () {
             let showId = square.appendChild(divId)
             square.removeChild(showId);
         })
 
-        let colorArray = ["red", "orange", "gold", "green", "blue", "indigo", "gray"];
+        // change background color on click
+        let colorArray = ["navy", "gold", "seagreen", "lightblue"];
         let randomColor = colorArray[Math.floor(Math.random() * colorArray.length)];
 
-        square.addEventListener("click", function() {
+        square.addEventListener("click", function () {
             square.style.backgroundColor = randomColor;
         })
 
-        let olderSibling = parseInt(idValue) + 1
-        let youngerSibling = parseInt(idValue) - 1
+        // remove siblings on double click
+        let olderSibling = document.getElementById('idValue').nextElementSibling;
+        let youngerSibling = document.getElementById('idValue').previousElementSibling;
 
-        square.addEventListener("dblclick", function() {
-            if (idValue % 2 === 0){ //even numbers
-                document.body.removeChild(document.getElementById(olderSibling));
-            } else { //odd numbers
-                document.body.removeChild(document.getElementById(youngerSibling));
-            } 
+        square.addEventListener("dblclick", function () {
+                if (olderSibling === null || youngerSibling === null) {
+                    alert("The shape you are trying to remove does not exist");
+                } else if (idValue % 2 === 0) { //even numbers
+                    document.body.removeChild(olderSibling);
+                } else if (idValue % 2 !== 0) { //odd numbers
+                    document.body.removeChild(youngerSibling);
+                }
         })
-    
+
     })
 
 })
