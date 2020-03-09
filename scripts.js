@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         let idValue = square.id
         let divId = document.createTextNode("id=" + idValue)
-        
+
         // show div id on mouseover
         square.addEventListener("mouseover", function () {
             square.appendChild(divId)
@@ -44,19 +44,25 @@ document.addEventListener('DOMContentLoaded', function () {
         })
 
         // remove siblings on double click
-        let olderSibling = document.getElementById('idValue').nextElementSibling;
-        let youngerSibling = document.getElementById('idValue').previousElementSibling;
-
         square.addEventListener("dblclick", function () {
-                if (olderSibling === null || youngerSibling === null) {
-                    alert("The shape you are trying to remove does not exist");
-                } else if (idValue % 2 === 0) { //even numbers
-                    document.body.removeChild(olderSibling);
-                } else if (idValue % 2 !== 0) { //odd numbers
-                    document.body.removeChild(youngerSibling);
-                }
-        })
+            let olderSibling = square.nextElementSibling;
+            let youngerSibling = square.previousElementSibling;
 
+            if (idValue % 2 === 0) {
+                //even numbers
+                if (!olderSibling) {
+                    alert('The shape you are trying to remove does not exist');
+                    return;
+                }
+                document.body.removeChild(olderSibling);
+            } else { //odd numbers
+                if (!youngerSibling || youngerSibling === document.querySelector('button')) {
+                    alert('The shape you are trying to remove does not exist');
+                    return;
+                }
+                document.body.removeChild(youngerSibling);
+            }
+        })
     })
 
 })
