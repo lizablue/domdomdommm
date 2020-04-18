@@ -15,36 +15,48 @@ class Box {
     constructor() {
         this.div = document.createElement('div');
         this.value = document.createTextNode(counter);
+        this.render();
+        this.addEvents();
+    }
+
+    addEvents() {
+        this.div.addEventListener("mouseover", () => this.div.appendChild(this.value));
+        this.div.addEventListener("mouseout", () => this.div.removeChild(this.value));
+        this.div.addEventListener("click", () => this.div.style.backgroundColor = this.randomColor());
+        this.div.addEventListener("dblclick", () => this.removeSomething());
+    }
+
+    render() {
         this.div.className = "shape";
         container.appendChild(this.div);
         this.div.id = counter;
-        this.div.addEventListener("mouseover", () => this.div.appendChild(this.value));
-        this.div.addEventListener("mouseout", () => this.div.removeChild(this.value));
-        this.div.addEventListener("click", () => {
-            let r = Math.floor(Math.random() * 256);
-            let g = Math.floor(Math.random() * 256);
-            let b = Math.floor(Math.random() * 256);
-            this.div.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
-        })
+    }
+
+    randomColor() {
+        let r = Math.floor(Math.random() * 256);
+        let g = Math.floor(Math.random() * 256);
+        let b = Math.floor(Math.random() * 256);
+        return `rgb(${r}, ${g}, ${b})`;
+    }
+
+    removeSomething() {
         // remove siblings on double click
-        this.div.addEventListener("dblclick", () => {
-            let olderSibling = this.div.nextElementSibling;
-            let youngerSibling = this.div.previousElementSibling;
-            if (this.value % 2 === 0) {
-                //even numbers
-                if (!olderSibling) {
-                    console.log('%cThe shape you are trying to remove does not exist', 'background: red; color: white');
-                    return;
-                }
-                container.removeChild(olderSibling);
-            } else { //odd numbers
-                if (!youngerSibling || youngerSibling === document.querySelector('button')) {
-                    console.log('%cThe shape you are trying to remove does not exist', 'background: red; color: white');
-                    return;
-                }
-                container.removeChild(youngerSibling);
+        let olderSibling = this.div.nextElementSibling;
+        let youngerSibling = this.div.previousElementSibling;
+        if (this.value % 2 === 0) {
+            //even numbers
+            if (!olderSibling) {
+                console.log('%cThe shape you are trying to remove does not exist', 'background: red; color: white');
+                return;
             }
-        })
+            container.removeChild(olderSibling);
+        } else { //odd numbers
+            if (!youngerSibling || youngerSibling === document.querySelector('button')) {
+                console.log('%cThe shape you are trying to remove does not exist', 'background: red; color: white');
+                return;
+            }
+            container.removeChild(youngerSibling);
+        }
     }
 }
 
